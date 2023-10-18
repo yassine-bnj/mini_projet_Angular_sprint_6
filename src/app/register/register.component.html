@@ -1,0 +1,49 @@
+<HTML>
+  
+    <HEAD>
+    
+        <TITLE> register new account</TITLE>
+    
+    </HEAD>
+    
+    
+    <BODY>
+      
+        <FORM>
+            <FIELDSET>
+            
+              <h1 class="login">créer un compte</h1>
+              <div class="alert alert-danger" *ngIf="err==1">
+                 <strong>mot de passe et confirmation non identiques..</strong>
+                 </div>
+                 <div class="alert alert-danger" *ngIf="err==2">
+                    <strong>username déja existe..</strong>
+                    </div>
+              <div class="txt_field">
+             
+                 <input type="text" name="username"  class="form-control"  [(ngModel)]="user.username" placeholder=" username" >
+             </div>
+             
+              <div class="txt_field">
+           
+                 <input type="password" name="password"   [(ngModel)]="user.password" placeholder=" mot de passe">
+             </div>
+             <div class="txt_field">
+           
+                <input type="password" name="confirmPassword"   [(ngModel)]="confirmPassword" placeholder="confirmer mot de passe">
+            </div>
+              
+              <button type="button"  (click)="onRegister()" >s'insrire</button>
+               
+              
+              
+               <p>vous avez un compte? <a routerLink="/login">se connecter </a></p>
+                
+            </FIELDSET>
+           </FORM>
+        
+    
+    </BODY>
+    <BR>
+    <BR>
+    </HTML>

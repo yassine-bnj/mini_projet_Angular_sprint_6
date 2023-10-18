@@ -1,0 +1,54 @@
+<div class="container" class="thecontainer">
+    <div>
+        <h2>Modifier un Livre :</h2>
+    </div>
+    <form>
+        <div class="col-12 theInput" >
+            <label>ID Livre</label>
+            <input readonly type="text" [(ngModel)]="currentLivre.idLivre" name="idLivre" class="form-control">
+        </div>
+        <div class="col-12 theInput">
+            <label>Titre Livre</label>
+            <input type="text" [(ngModel)]="currentLivre.titre" name="titreLivre" class="form-control">
+        </div>
+        <div class="col-12 theInput">
+            <label>Auteur Livre</label>
+            <input type="text" [(ngModel)]="currentLivre.auteur" name="auteurLivre" class="form-control">
+        </div>
+        <div class="col-12 theInput">
+            <label>Nb Pages</label>
+            <input type="number" [(ngModel)]="currentLivre.nbPages" name="nbPagesLivre" class="form-control">
+        </div>
+
+        <div class="col-sm-16 col-md-16 col-lg-16">
+            <label class="mb-2">Image :</label>
+            <input type="file" (change)="onImageUpload($event)" name="logo" class="form-control">
+        </div>
+
+        <div class="col-sm-16 col-md-16 col-lg-16">
+            <img [src]="myImage" class="card-img-top img-fluid rounded-start"
+            style="width: 500px; height: 300px" />
+            </div>
+
+        <div class="col-12 theInput">
+            <label>Date Parution</label>
+            <input type="date" [ngModel]="currentLivre.dateParution | date: 'yyyy-MM-dd'"
+                (ngModelChange)=" currentLivre.dateParution= $event" name="dateParution" class="form-control">
+        </div>
+
+
+        <div class="col-12 theInput">
+            <label>Type </label>
+            <select class="form-control form-control-lg" id="idCat" name="idCat"
+            [(ngModel)]="updatedTypeId">
+            <option *ngFor="let t of types" [value]="t.idType" >
+            {{t.nomType}}
+            </option>
+            </select>
+            </div>
+        <div class="mt-2">
+            <button type="submit" (click)="updateLivre()" class="btn btn-success">Modifier</button>
+        </div>
+    </form>
+
+</div>

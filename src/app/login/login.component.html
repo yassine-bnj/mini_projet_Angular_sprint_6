@@ -1,0 +1,70 @@
+ <!-- <div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <div class="alert alert-danger" *ngIf="err==1">
+            <strong>login ou mot de passe erronés..</strong>
+            </div>
+    <div class="col-12">
+    <form >
+    <div class="form-group">
+    <label >Nom Utilisateur :</label>
+    <input type="text" name="username"
+    class="form-control"
+    [(ngModel)]="user.username" >
+    </div>
+    <div class="form-group">
+    <label >Mot de passe :</label>
+    <input type="password" name="password"
+    [(ngModel)]="user.password" class="form-control">
+  
+    </div>
+    <div class="row justify-content-md-center">
+    <button type="button" (click)="onLoggedin()"
+    class="btn btn-success">Connexion</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>  -->
+    <HTML>
+  
+        <HEAD>
+        
+            <TITLE> Login Form </TITLE>
+        
+        </HEAD>
+        
+        
+        <BODY>
+          
+            <FORM>
+                <FIELDSET>
+                
+                  <h1 class="login">Login</h1>
+                  <div class="alert alert-danger" *ngIf="err==1">
+                     <strong>login ou mot de passe erronés..</strong>
+                     </div>
+                  <div class="txt_field">
+                 
+                     <input type="text" name="username"  class="form-control"  [(ngModel)]="user.username" placeholder=" username" >
+                 </div>
+                 
+                  <div class="txt_field">
+               
+                     <input type="password" name="password"   [(ngModel)]="user.password" placeholder=" mot de passe">
+                 </div>
+                  
+                  
+                  <button type="button" (click)="onLoggedin()">Connexion</button>
+                   
+                  
+                  <p>vous n'avez pas un compte? <a routerLink="/register">s'inscrire </a></p>
+                    
+                </FIELDSET>
+               </FORM>
+            
+        
+        </BODY>
+        <BR>
+        <BR>
+        </HTML>

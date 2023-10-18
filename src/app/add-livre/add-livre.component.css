@@ -1,0 +1,12 @@
+.thecontainer{
+    border: 1px solid #ced4da;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    background: #10a9e3;
+    border-radius: 19px;
+    max-width: 650px
+}
+.theInput{
+    text-align: left;
+}

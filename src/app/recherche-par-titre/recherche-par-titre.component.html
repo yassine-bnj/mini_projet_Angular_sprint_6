@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Recherche Livre par Titre</h1>
+    <!-- <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2 ">
+    <label>Titre Livre</label>
+    <input class="form-control" #titreLivre (keyup)="onKeyUp(titreLivre.value)">
+   
+    </div>
+    </form> -->
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+        <label>Nom Produit en tapant</label>
+        <input #titre [(ngModel)]="searchTerm" name="searchTerm" class="form-control" >
+        </div>
+        </form>
+        
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr class="tableHeader">
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Nb Pages</th>
+                    <th>Date Création</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <tbody *ngFor="let livre of livres|searchFilter: searchTerm ">
+                    <tr>
+                        <td>{{livre.idLivre}}</td>
+                        <td>{{livre.titre}}</td>
+                        <td>{{livre.auteur}}</td>
+                        <td>{{livre.nbPages}}</td>
+                        <td>{{livre.dateParution | date:'dd/MM/yyyy'}}</td>
+                        <td>{{livre.type.nomType}}</td>
+                        <td><a class="btn btn-danger" *ngIf="authService.isAdmin()" (click)="supprimerLivre(livre)">Supprimer</a></td>
+                        <td><a class="btn btn-warning" *ngIf="authService.isAdmin()" [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a>
+                       
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+            </div>
+            

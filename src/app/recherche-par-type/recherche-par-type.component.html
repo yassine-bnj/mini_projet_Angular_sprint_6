@@ -1,0 +1,44 @@
+<div class="container">
+    <h1 class="text-center">Recherche par type</h1>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <label>Types </label>
+        <select class="form-control form-control-lg" id="idCat" name="idCat"
+        [(ngModel)]="IdType" (change)="onChange()">
+        <option *ngFor="let t of types" value="{{t.idType}}">
+        {{t.nomType}}
+         </option>
+        </select>
+        </div>
+        
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr class="tableHeader">
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Nb Pages</th>
+                    <th>Date Création</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <tbody *ngFor="let livre of livres">
+                    <tr>
+                        <td>{{livre.idLivre}}</td>
+                        <td>{{livre.titre}}</td>
+                        <td>{{livre.auteur}}</td>
+                        <td>{{livre.nbPages}}</td>
+                        <td>{{livre.dateParution | date:'dd/MM/yyyy'}}</td>
+                        <td>{{livre.type.nomType}}</td>
+                        <td><a class="btn btn-danger" *ngIf="authService.isAdmin()" (click)="supprimerLivre(livre)">Supprimer</a></td>
+                        <td><a class="btn btn-warning" *ngIf="authService.isAdmin()" [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
