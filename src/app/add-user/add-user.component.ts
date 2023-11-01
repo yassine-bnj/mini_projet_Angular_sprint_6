@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AddUserComponent implements OnInit {
 user:User=new User()
 confirmPassword!:String
-err:number=0;
+err:string="";
   constructor(
     private authService:AuthService,
     private router:Router
@@ -28,14 +28,20 @@ if(this.confirmPassword!=this.user.password){
 }else{
   console.log(this.user)
   this.user.enabled=true
+
  
-  this.authService.registerUser(this.user).subscribe({
+  this.authService.addUser(this.user).subscribe({
     next:(res)=>{
       console.log(res);
        this.router.navigate(["/allUsers"])
     },
     error:(err:any)=>{
-      this.err = 1;
+    
+      if(err.status=400){
+        this.err= err.error.message;
+        console.log(err);
+
+      }
     }
   }
   )

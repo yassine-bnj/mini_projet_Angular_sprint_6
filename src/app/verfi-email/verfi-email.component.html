@@ -1,0 +1,44 @@
+<HTML>
+  
+    <HEAD>
+    
+        
+    
+    </HEAD>
+    
+    
+    <BODY>
+      
+        <FORM  >
+            <FIELDSET>
+            
+              <h1 class="login">confirmation de l'email</h1>
+              <!-- <div class="alert alert-danger" >
+                 <strong>mot de passe et confirmation non identiques..</strong>
+                 </div> -->
+               
+              <div class="txt_field">
+                 <p>veillez entrer le code envoyé par mail</p>
+                 <input type="text" name="code"
+                 
+                 [(ngModel)]="code"
+                  class="form-control"
+                   
+                    placeholder=" code de confirmation" >
+             </div>
+             
+
+              
+              <button type="button" (click)="validateEmail()" >valider</button>
+               
+              
+              
+                
+            </FIELDSET>
+           </FORM>
+        
+    
+    </BODY>
+    <BR>
+    <BR>
+    </HTML>

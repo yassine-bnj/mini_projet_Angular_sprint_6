@@ -6,19 +6,46 @@
                 <tr class="tableHeader">
                     <th>Id</th>
                     <th>username</th>
+                    <th>email</th>
                     <th>Roles</th>
-                   
+                    <th>etat</th>
+                    
                     <th></th>
                     <th></th>
 
                 </tr>
                 <tbody *ngFor="let u of users">
-                    <tr>
+                    <tr *ngIf="u.emailConfirmed==true">
+                    <!-- <tr> -->
                         <td>{{u.user_id}}</td>
                         <td>{{u.username}}</td>
+                        <td>{{u.email}}</td>
                         <td>
-                            <span *ngFor="let r of u.roles">{{r.role}} </span>
+                            <span *ngFor="let r of u.roles">
+                              
+
+                                <span  *ngIf="r.role!=u.roles[u.roles.length-1].role"
+                                >
+                            {{r.role}} | 
+                            </span>
+                            <span  *ngIf="r.role==u.roles[u.roles.length-1].role"
+                            >
+                        {{r.role}}
+                        </span>
+                            
+                            </span>
                         </td>
+
+                        <td>
+                            <!-- checkbox -->
+
+                            <!-- <input type="checkbox" [checked]="u.enabled" role="switch" (change)="toggleEtat(u)" /> -->
+                          
+                              <div class="custom-control custom-switch">
+                                <input type="checkbox" [checked]="u.enabled" role="switch" (change)="toggleEtat(u)" class="custom-control-input" [id]="'s'+u.user_id">
+                                <label class="custom-control-label" for="s{{u.user_id}}" ></label>
+                              </div>  
+                           </td>
                     
 
 

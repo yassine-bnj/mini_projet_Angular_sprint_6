@@ -23,19 +23,48 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/livres']);
     }
   }
-  onLoggedin()
+ async onLoggedin()
   {
     console.log(this.user)
   this.authService.login(this.user).subscribe({
-  next: (data) => {
+  next: async(data) => {
   let jwToken = data.headers.get('Authorization')!;
   console.log(jwToken);
   this.authService.saveToken(jwToken);
+  this.authService.getToken()
+  this.authService.decodeJWT();
+await this.getLoggedUser();
+
+
+console.log(this.user)
+  if(this.user.enabled==false){
+    alert("votre compte n'est pas encore activé ,veillez contactez l'administrateur")
+    this.user = new User();
+    this.authService.logout();
+  }
+else{
   this.router.navigate(['/']);
+}
+
+
+
+
   },
   error: (err: any) => {
   this.err = 1;
   }
   });
   }
+
+
+  async getLoggedUser() {
+    try {
+      const data = await this.authService.getUserByUsername(this.authService.loggedUser).toPromise();
+      console.log(data);
+      this.user= data!;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
 }

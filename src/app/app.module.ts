@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LivresComponent } from './livres/livres.component';
 import { AddLivreComponent } from './add-livre/add-livre.component';
 import { UpdateLivreComponent } from './update-livre/update-livre.component';
@@ -21,6 +21,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TokenInterceptor } from './services/token.interceptor';
+import { VerfiEmailComponent } from './verfi-email/verfi-email.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +41,14 @@ import { TokenInterceptor } from './services/token.interceptor';
     EditUserComponent,
     AddUserComponent,
     ProfileComponent,
+    VerfiEmailComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [{ provide : HTTP_INTERCEPTORS,
     useClass : TokenInterceptor,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -10,28 +10,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  user = new User();
+ public user = new User();
   confirmPassword?:string;
   myForm!: FormGroup;
-  err=0;
+  err=""
+  loading= false;
   constructor(
    private authSerice:AuthService ,
    private router:Router,
    private formBuilder: FormBuilder
   ) { 
 
-  //   this.myForm = this.formBuilder.group({
+    this.myForm = this.formBuilder.group({
     
     
+      username : ['', [Validators.required]],
+      email : ['', [Validators.required, Validators.email]],
+      password : ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword : ['', [Validators.required]],
 
-  //     email : ['', [Validators.required]],
-  //     password : ['', [Validators.required]],
-  //     confirmPassword : ['', [Validators.required, Validators.minLength(6)]],
-  //     //confirrm password = password
-  //     nom : ['', [Validators.required]],
-  //     prenom : ['', [Validators.required]],
-
-  //  });
+   },
+    {
+    validator: this.matchPasswords 
+  });
 
 
 
@@ -42,11 +43,14 @@ export class RegisterComponent implements OnInit {
 
 onRegister()
 {
-  console.log(this.user)
-if(this.user.password!=this.confirmPassword){
-  this.err=1;
-}
-else{
+  this.loading=true;
+  this.err=""
+  console.log(this.myForm.value);
+  this.user.username=this.myForm.value.username;
+  this.user.email=this.myForm.value.email;
+  this.user.password=this.myForm.value.password;
+  
+  console.log(this.user);
 
 
   this.user.enabled=true
@@ -59,19 +63,39 @@ else{
 
   this.authSerice.registerUser(this.user).subscribe({
     next:(res)=>{
+      this.authSerice.setRegistredUser(this.user);
+      this.loading=false;
       console.log(res);
-       alert("compte créé avec succès veuillez vous connecter")
-        this.router.navigate(["/login"])
+       alert("veillez confirmer votre email");
+        this.router.navigate(["/verifEmail",this.user.email]);
+
     },
     error:(err:any)=>{
-      this.err = 2;
+      this.loading=false;
+      if(err.status=400){
+        this.err= err.error.message;
+        console.log(err);
+
+      }
     }
   }
   )
 
+
+
+
 }
 
 
-}
 
+matchPasswords(control: AbstractControl): { [key: string]: boolean } | null {
+  const newPassword = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+
+  if (newPassword && confirmPassword && newPassword.value !== confirmPassword.value) {
+    return { 'passwordMismatch': true };
+  }
+
+  return null; 
+} 
 }

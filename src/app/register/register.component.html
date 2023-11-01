@@ -9,32 +9,76 @@
     
     <BODY>
       
-        <FORM>
+        <FORM [formGroup]="myForm"  >
             <FIELDSET>
             
               <h1 class="login">créer un compte</h1>
-              <div class="alert alert-danger" *ngIf="err==1">
-                 <strong>mot de passe et confirmation non identiques..</strong>
+              <div class="alert alert-danger" *ngIf="err!=''">
+                 <strong>{{err}}</strong>
                  </div>
-                 <div class="alert alert-danger" *ngIf="err==2">
-                    <strong>username déja existe..</strong>
-                    </div>
+               
               <div class="txt_field">
              
-                 <input type="text" name="username"  class="form-control"  [(ngModel)]="user.username" placeholder=" username" >
+                 <input type="text" name="username" 
+                  class="form-control"
+                    formControlName="username" 
+                    placeholder=" username" >
              </div>
+             <span *ngIf="myForm.controls['username'].hasError('required')&& myForm.controls['username'].touched" class="text-danger d-block text-left px-5 mb-2">
+                username est obligatoire
+            </span>
+
+             <div class="txt_field">
+             
+                <input type="text" name="email"  class="form-control"   placeholder=" email" 
+                formControlName="email"  >
+                
+            </div>
+            <span *ngIf="myForm.controls['email'].hasError('required')&& myForm.controls['email'].touched" class="text-danger d-block text-left px-5 mb-2">
+                email est obligatoire
+            </span>
+            <span *ngIf="myForm.controls['email'].hasError('email')&& myForm.controls['email'].touched" class="text-danger d-block text-left px-5 mb-2">
+                email non valide
+            </span>
+            
              
               <div class="txt_field">
            
-                 <input type="password" name="password"   [(ngModel)]="user.password" placeholder=" mot de passe">
+                 <input type="password" name="password" 
+                 formControlName="password" 
+               
+                 placeholder=" mot de passe">
              </div>
+             <span *ngIf="myForm.controls['password'].hasError('required')&& myForm.controls['password'].touched" class="text-danger d-block text-left px-5 mb-2">
+                mot de passe est obligatoire
+            </span>
+            <span *ngIf="myForm.controls['password'].hasError('minlength')&& myForm.controls['password'].touched" class="text-danger d-block text-left px-5 mb-2">
+                mot de passe doit contenir au moins 6 caractères
+            </span>
              <div class="txt_field">
            
-                <input type="password" name="confirmPassword"   [(ngModel)]="confirmPassword" placeholder="confirmer mot de passe">
+                <input type="password" name="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="confirmer mot de passe">
             </div>
+            <span *ngIf="myForm.controls['confirmPassword'].hasError('required')&& myForm.controls['confirmPassword'].touched" class="text-danger d-block text-left px-5 mb-2">
+                confirmer mot de passe est obligatoire
+            </span>
+            <span class="text-danger"
+            *ngIf="myForm.hasError('passwordMismatch')&& myForm.controls['confirmPassword'].touched">
+            Confirmation mot de passe ne correspond pas
+           </span>
+
               
-              <button type="button"  (click)="onRegister()" >s'insrire</button>
-               
+              <button *ngIf="!loading"
+               type="button" [disabled]="myForm.invalid"
+                (click)="onRegister()" >s'insrire</button>
+              <div *ngIf="loading"
+               class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
               
               
                <p>vous avez un compte? <a routerLink="/login">se connecter </a></p>

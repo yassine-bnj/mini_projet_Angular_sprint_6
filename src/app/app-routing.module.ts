@@ -15,6 +15,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { VerfiEmailComponent } from './verfi-email/verfi-email.component';
 
 const routes: Routes = [
   { path: "livres", component: LivresComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'updateUser/:id',component:EditUserComponent,canActivate:[UserGuard]},
   {path:'profile',component:ProfileComponent},
   {path: 'app-forbidden', component: ForbiddenComponent},
+  { path: 'verifEmail/:email', component: VerfiEmailComponent },
 ];
 
 @NgModule({

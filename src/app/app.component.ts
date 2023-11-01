@@ -20,11 +20,11 @@ export class AppComponent {
     const currentRoute = this.router.url;
     console.log(currentRoute)
     this.authService.loadToken();
-    if (currentRoute !== '/register' &&this.authService.getToken()==null ||
-    this.authService.isTokenExpired()  
-     )   
+//     if ((currentRoute !== '/register' )&&this.authService.getToken()==null || 
+//     this.authService.isTokenExpired()  
+//      )   
 
- this.router.navigate(['/login']);
+//  this.router.navigate(['/login']);
     
     
     

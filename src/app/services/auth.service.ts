@@ -13,6 +13,7 @@ token!:any;
  /* users: User[] = [{"username":"admin","password":"123","roles":['ADMIN']},
   {"username":"nadhem","password":"123","roles":['USER']} ];*/
   public loggedUser!:string;
+  public regitredUser : User = new User();
 public isloggedIn: Boolean = false;
 public roles?:string[];
   constructor(private router:Router,
@@ -23,6 +24,16 @@ public roles?:string[];
   return this.http.post<User>(this.apiURL+'/login', user , {observe:'response'});
   }
  
+
+setRegistredUser(user : User){
+  this.regitredUser=user;
+}
+
+getRegistredUser(){
+  return this.regitredUser;
+}
+
+
  saveToken(jwt:string){
       localStorage.setItem('jwt',jwt);
       this.token = jwt;
@@ -40,6 +51,11 @@ public roles?:string[];
     const decodedToken = this.helper.decodeToken(this.token);
     this.roles = decodedToken.roles;
     this.loggedUser = decodedToken.sub;
+
+   
+    
+
+
   }
 
  
@@ -135,6 +151,7 @@ public roles?:string[];
   
 
   registerUser(user :User){
+    console.log(user);
     return this.http.post<User>(this.apiURL+'/Userapi/users/register', user, {observe:'response'});
   }
 
@@ -149,6 +166,13 @@ public roles?:string[];
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }});
   }
 
+  validateEmail(email : string,code : string){
+    return this.http.get<any>(this.apiURL+'/Userapi/users/verifEmail/'+email+'/'+code);
+  }
+
+getRoles(){
+  return this.http.get<any>(this.apiURL+'/Userapi/users/roles')
+}
   
 
 

@@ -9,6 +9,7 @@ import { User } from '../model/user.model';
 })
 export class AllUsersComponent implements OnInit {
   users!:User[];
+
   constructor(
 
     private authService:AuthService
@@ -42,6 +43,14 @@ if (conf)
 
  
 
+}
+
+toggleEtat(user:User){
+  user.enabled=!user.enabled
+  console.log(user)
+  this.authService.updateUser(user).subscribe((res)=>{
+    console.log(res);
+  })
 }
 
 

@@ -15,20 +15,27 @@
             <input type="text" [(ngModel)]="user.username" name="username" class="form-control">
         </div>
         <div class="col-12 theInput">
+            <label>email</label>
+            <input type="text" [(ngModel)]="user.email" name="email" class="form-control">
+        </div>
+        <div *ngIf="_addRole&&roles.length>0" class="col-12 theInput">
             <label>Roles</label>
             <select class="form-control form-control-lg"
-            [(ngModel)]="r" name="r"
+            [(ngModel)]="r" name="r" (change)="addRole()"
             >
-         
             
-             <option value="USER"  >USER </option>
-             <option value="ADMIN" >ADMIN </option>
-             <option value="SUPERADMIN"  >SUPERADMIN </option>
+            <option *ngFor="let role of roles"
+             value="{{role.role}}" 
+             
+            >
+            {{role.role}}
+            </option>
+
             </select>
             </div>
             <div class="row">
                 <div class="mt-2 mb-2 col-6">
-                    <button  type="button" class="btn btn-success" (click)="addRole()">Ajouter un role</button>
+                    <button  type="button" class="btn btn-success" (click)="showAddRole()">Ajouter un role</button>
                    </div>
                     <div class="mt-2 mb-2 col-6">
                         <button type="submit" (click)="updateUser()" class="btn btn-success">valider modifications</button>

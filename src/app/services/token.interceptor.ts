@@ -26,7 +26,8 @@ intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEven
 
   const g = "/login";
   const r ="/register"
-  if(request.url.search(g) === -1&&request.url.search(r) === -1){
+  const v ="/verifEmail"
+  if(request.url.search(g) === -1&&request.url.search(r) === -1&&request.url.search(v) === -1){
     let jwt = this.authService.getToken();
   let reqWithToken = request.clone( {
   setHeaders: { Authorization : "Bearer "+jwt}
