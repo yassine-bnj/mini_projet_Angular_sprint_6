@@ -3,7 +3,7 @@ import { User } from '../model/user.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,7 +18,9 @@ export class RegisterComponent implements OnInit {
   constructor(
    private authSerice:AuthService ,
    private router:Router,
-   private formBuilder: FormBuilder
+   private formBuilder: FormBuilder,
+   private toastr: ToastrService
+
   ) { 
 
     this.myForm = this.formBuilder.group({
@@ -66,7 +68,8 @@ onRegister()
       this.authSerice.setRegistredUser(this.user);
       this.loading=false;
       console.log(res);
-       alert("veillez confirmer votre email");
+     //  alert("veillez confirmer votre email");
+     this.toastr.warning('veillez confirmer votre email', 'Success');
         this.router.navigate(["/verifEmail",this.user.email]);
 
     },

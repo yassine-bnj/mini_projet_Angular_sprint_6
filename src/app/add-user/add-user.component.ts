@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-user',
@@ -14,7 +15,8 @@ confirmPassword!:String
 err:string="";
   constructor(
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,10 @@ err:string="";
   addUser(){
 if(this.confirmPassword!=this.user.password){
   console.log("error")
-  alert("les deux mot de passe ne sont pas identiques")
+
+
+  this.toastr.error('les deux mot de passe ne sont pas identiques', 'Error');
+  
 }else{
   console.log(this.user)
   this.user.enabled=true

@@ -23,6 +23,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { VerfiEmailComponent } from './verfi-email/verfi-email.component';
 
+import { ToastrModule } from 'ngx-toastr';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // For enabling animations
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +52,11 @@ import { VerfiEmailComponent } from './verfi-email/verfi-email.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
+    
   ],
   providers: [{ provide : HTTP_INTERCEPTORS,
     useClass : TokenInterceptor,

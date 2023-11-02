@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { AuthService } from '../services/auth.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   err=0;
 
   constructor(private authService : AuthService,
+    private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -38,7 +39,9 @@ await this.getLoggedUser();
 
 console.log(this.user)
   if(this.user.enabled==false){
-    alert("votre compte n'est pas encore activé ,veillez contactez l'administrateur")
+    this.toastr.error('votre compte n\'est pas encore activé ,veillez contactez l\'administrateur', 'Error');
+
+
     this.user = new User();
     this.authService.logout();
   }
